@@ -2,9 +2,11 @@ import unittest
 from logging import LogRecord
 from filters import LevelFilter, RangeFilter, AnyFilter
 
+
 class DummyLogRecord(LogRecord):
     def __init__(self, levelno, msg="", name="test", pathname="", lineno=0):
         super().__init__(name, levelno, pathname, lineno, msg, args=(), exc_info=None)
+
 
 class TestLevelFilter(unittest.TestCase):
     def test_level_match(self):
@@ -16,6 +18,7 @@ class TestLevelFilter(unittest.TestCase):
         filt = LevelFilter(30)
         record = DummyLogRecord(20)
         self.assertFalse(filt.filter(record))
+
 
 class TestRangeFilter(unittest.TestCase):
     def test_in_range(self):
@@ -38,6 +41,7 @@ class TestRangeFilter(unittest.TestCase):
         record = DummyLogRecord(20)
         self.assertTrue(filt.filter(record))
 
+
 class TestAnyFilter(unittest.TestCase):
     def test_any_filter_true(self):
         f1 = LevelFilter(10)
@@ -57,6 +61,7 @@ class TestAnyFilter(unittest.TestCase):
         anyf = AnyFilter()
         record = DummyLogRecord(20)
         self.assertFalse(anyf.filter(record))
+
 
 if __name__ == "__main__":
     unittest.main()

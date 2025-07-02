@@ -3,7 +3,8 @@ from logging import Filter, LogRecord
 
 class LevelFilter(Filter):
     """Filter to records with matching level."""
-    def __init__(self, level:int, name:str = None):
+
+    def __init__(self, level: int, name: str = None):
         """Filter to records with matching level.
 
         Args:
@@ -25,10 +26,11 @@ class LevelFilter(Filter):
             bool: True if the record's level matches the filter's level, False otherwise.
         """
         return True if record.levelno == self.level else False
-    
+
 
 class RangeFilter(Filter):
     """Filter to records within a specified level range."""
+
     def __init__(self, min_level: int, max_level: int, name: str = None):
         """Filter to records within a specified level range.
 
@@ -53,10 +55,11 @@ class RangeFilter(Filter):
             bool: True if the record's level is within the range, False otherwise.
         """
         return True if self.low_level <= record.levelno <= self.high_level else False
-    
+
 
 class AnyFilter(Filter):
     """Filter to records matching any of the specified filters."""
+
     def __init__(self, *filters: Filter, name: str = None):
         """Filter to records matching any of the specified filters.
 
@@ -79,6 +82,4 @@ class AnyFilter(Filter):
         Returns:
             bool: True if any filter matches the record, False otherwise.
         """
-        return any(f.filter(record) for f in self.filters)  
-
-        
+        return any(f.filter(record) for f in self.filters)
